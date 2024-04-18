@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface CryptoRxApi {
 
-    @GET("/assets")
+    @GET("assets")
     fun getAssets(): Single<AssetResponse>
 }

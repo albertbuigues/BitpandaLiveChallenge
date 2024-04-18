@@ -4,6 +4,6 @@ import retrofit2.http.GET
 
 interface CryptoCoroutinesApi {
 
-    @GET("/assets")
+    @GET("assets")
     suspend fun getAsset(): AssetResponse
 }

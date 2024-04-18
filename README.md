@@ -1,7 +1,7 @@
 # Welcome to the Bitpanda Android code challenge
 
 ## Objective:
-Develop an Android application that displays a list best/worst performing crypto coins in the last 24 hours
+Develop an Android application that displays a list of the best/worst performing crypto coins in the last 24 hours. You can use the provided template to kick start you implementation or start from scratch. 
 
 ## Requirements:
 * Display a list of the top 10 crypto coins based on price change percentage over the last 24 hours.
@@ -15,18 +15,18 @@ Develop an Android application that displays a list best/worst performing crypto
 * BONUS: Make the prices update via socket events
 
 ## Resources:
-Use the following free API to implement the task: https://docs.coincap.io/
+Use the following public API to implement the task: https://docs.coincap.io/
 * Fetching of all the assets: https://api.coincap.io/v2/assets
 * Converting price to Euro: https://api.coincap.io/v2/rates
 * *BONUS: price updates: wss://ws.coincap.io/prices?assets=bitcoin*
 
 ## Deliverables:
 * Source code of the Android application
-* Documentation explaining the implementation details and how to run the application on an Android device or emulator.
+* Documentation explaining the implementation details and the arachitecture of the application.
 * Optionally, provide a demo video or screenshots showcasing the functionality of the application.
 
 ## Submission:
-* Fork this template repository to provide the solution
+* You can push your code in the repository provided in this classroom.
 
 ## Additional Notes:
 * Follow Android development best practices and architectural guidelines.
@@ -37,4 +37,5 @@ Use the following free API to implement the task: https://docs.coincap.io/
 * *BONUS: Feel free to add extra features or enhancements to demonstrate your Android development skills and creativity.*
 
 **Good Luck!!**
+
 **From Bitpanda Android team**

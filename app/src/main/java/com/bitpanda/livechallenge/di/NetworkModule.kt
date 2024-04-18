@@ -28,7 +28,7 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(json: Json): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.coincap.io/v2")
+            .baseUrl("https://api.coincap.io/v2/")
             .addConverterFactory(
                 json.asConverterFactory(MediaType.get("application/json"))
             )

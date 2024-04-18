@@ -11,5 +11,6 @@ class CoinsViewHolder(
         coinName.text = item.name
         coinSymbol.text = item.symbol
         coinPrice.text = item.price
+        coinChange.text = item.changePercent24Hr
     }
 }
