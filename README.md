@@ -33,7 +33,6 @@ Use the CoinCap API 3.0 to implement the task: https://pro.coincap.io/api-docs
 * Take care of error handling and loading states
 * Use coroutines for reactive programming practices
 * Make sure the application has good test coverage
-* The project template is already configured with Compose UI, Hilt, and modern dependencies
 * *BONUS: Feel free to add extra features or enhancements to demonstrate your Android development skills and creativity*
 
 **Good Luck!!**

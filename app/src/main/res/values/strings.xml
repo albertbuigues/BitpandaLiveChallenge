@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Candidate Live Challenge</string>
+
+    <string name="coins_fragment_label">Coins List</string>
 </resources>

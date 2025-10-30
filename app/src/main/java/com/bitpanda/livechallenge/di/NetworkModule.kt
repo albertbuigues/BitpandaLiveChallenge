@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType
 import retrofit2.Retrofit
 import retrofit2.create
 
@@ -28,7 +28,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl("https://rest.coincap.io/v3/")
             .addConverterFactory(
-                json.asConverterFactory("application/json".toMediaType())
+                json.asConverterFactory(MediaType.get("application/json"))
             )
             .build()
     }
