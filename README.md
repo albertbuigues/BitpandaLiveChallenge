@@ -33,7 +33,10 @@ Use the CoinCap API 3.0 to implement the task: https://pro.coincap.io/api-docs
 * Take care of error handling and loading states
 * Use coroutines for reactive programming practices
 * Make sure the application has good test coverage
-* *BONUS: Feel free to add extra features or enhancements to demonstrate your Android development skills and creativity*
+* BONUS: Feel free to add extra features or enhancements to demonstrate your Android development skills and creativity*
+* BONUS: Implement real-time price updates for Bitcoin using a websocket from TwelveData [TwelveData WebSocket Documentation](https://twelvedata.com/docs#ws-real-time-price)
+    * WebSocket endpoint: `wss://ws.twelvedata.com/v1/quotes/price?apikey=your_api_key`
+    * Please note that you will have to create a separate API key for TwelveData.
 
 **Good Luck!!**
 
