@@ -16,3 +16,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Candidate Live Challenge"
 include(":app")
+include(":network")
+include(":domain")
