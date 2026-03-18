@@ -8,6 +8,7 @@ import com.bitpanda.livechallenge.dto.toCoin
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import javax.inject.Inject
@@ -36,23 +37,27 @@ class CryptoRepositoryImpl @Inject constructor(
     override suspend fun getCoins(withRefresh: Boolean): Result<List<Coin>> = withContext(dispatcher) {
         if (!withRefresh && cachedCoins.isNotEmpty()) return@withContext Result.success(cachedCoins)
         try {
-            val assetsDeferred = async { api.getAssets() }
-            val ratesDeferred = async { api.getRates() }
+            // coroutineScope ensures structured concurrency: if one deferred fails,
+            // it cancels the other sibling and propagates the exception to the catch block.
+            coroutineScope {
+                val assetsDeferred = async { api.getAssets() }
+                val ratesDeferred = async { api.getRates() }
 
-            val assetsResponse = assetsDeferred.await()
-            val ratesResponse = ratesDeferred.await()
+                val assetsResponse = assetsDeferred.await()
+                val ratesResponse = ratesDeferred.await()
 
-            val euroRateUsd = ratesResponse.data
-                .find { rate -> rate.symbol == EURO_SYMBOL }
-                ?.rateUsd?.toDoubleOrNull()
-                ?: return@withContext Result.failure(
-                    CryptoError.EuroRateNotFoundError("Euro rate not found")
-                )
-            val coins = assetsResponse.data.map { dto ->
-                dto.toCoin(euroRateUsd)
+                val euroRateUsd = ratesResponse.data
+                    .find { rate -> rate.symbol == EURO_SYMBOL }
+                    ?.rateUsd?.toDoubleOrNull()
+                    ?: return@coroutineScope Result.failure(
+                        CryptoError.EuroRateNotFoundError("Euro rate not found")
+                    )
+                val coins = assetsResponse.data.map { dto ->
+                    dto.toCoin(euroRateUsd)
+                }
+                cachedCoins = coins
+                Result.success(coins)
             }
-            cachedCoins = coins
-            Result.success(coins)
         } catch (e: Exception) {
             val mappedError = when (e) {
                 is IOException -> {
