@@ -7,7 +7,7 @@ import javax.inject.Inject
  * Retrieves all available coins from the repository.
  */
 class GetCoinsUseCase @Inject constructor(private val repository: CryptosRepository) {
-    suspend operator fun invoke() = repository.getCoins()
+    suspend operator fun invoke() = repository.getCoins(withRefresh = true)
 }
 
 /**
@@ -15,7 +15,7 @@ class GetCoinsUseCase @Inject constructor(private val repository: CryptosReposit
  *
  */
 class GetTopTenBestCoinsUseCase @Inject constructor(private val repository: CryptosRepository) {
-    suspend operator fun invoke() = repository.getCoins().map { coins ->
+    suspend operator fun invoke() = repository.getCoins(withRefresh = false).map { coins ->
         coins.sortedBy { coin -> coin.changePercent }.take(10)
     }
 }
@@ -25,7 +25,7 @@ class GetTopTenBestCoinsUseCase @Inject constructor(private val repository: Cryp
  *
  */
 class GetTopTenWorstCoinsUseCase @Inject constructor(private val repository: CryptosRepository) {
-    suspend operator fun invoke() = repository.getCoins().map { coins ->
+    suspend operator fun invoke() = repository.getCoins(withRefresh = false).map { coins ->
         coins.sortedByDescending { coin -> coin.changePercent }.take(10)
     }
 }

@@ -8,7 +8,6 @@ import com.bitpanda.livechallenge.dto.toCoin
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import java.io.IOException
 import javax.inject.Inject
@@ -19,6 +18,8 @@ class CryptoRepositoryImpl @Inject constructor(
     private val api: CryptoApi,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): CryptosRepository {
+
+    private var cachedCoins: List<Coin> = emptyList()
 
     /**
      * Fetches assets and converts their prices to EUR using the current exchange rate.
@@ -32,36 +33,36 @@ class CryptoRepositoryImpl @Inject constructor(
      * This prevents the app from showing
      * incorrect or misleading financial information.
      */
-    override suspend fun getCoins(): Result<List<Coin>> = coroutineScope {
-        withContext(dispatcher) {
-            try {
-                val assetsDeferred = async { api.getAssets() }
-                val ratesDeferred = async { api.getRates() }
+    override suspend fun getCoins(withRefresh: Boolean): Result<List<Coin>> = withContext(dispatcher) {
+        if (!withRefresh && cachedCoins.isNotEmpty()) return@withContext Result.success(cachedCoins)
+        try {
+            val assetsDeferred = async { api.getAssets() }
+            val ratesDeferred = async { api.getRates() }
 
-                val assetsResponse = assetsDeferred.await()
-                val ratesResponse = ratesDeferred.await()
+            val assetsResponse = assetsDeferred.await()
+            val ratesResponse = ratesDeferred.await()
 
-                val euroRateUsd = ratesResponse.data
-                    .find { rate -> rate.symbol == EURO_SYMBOL }
-                    ?.rateUsd?.toDoubleOrNull()
-                    ?: return@withContext Result.failure(
-                        CryptoError.EuroRateNotFoundError("Euro rate not found")
-                    )
-                val coins = assetsResponse.data.map { dto ->
-                    dto.toCoin(euroRateUsd)
-                }
-                Result.success(coins)
-            } catch (e: Exception) {
-                val mappedError = when (e) {
-                    is IOException -> {
-                        CryptoError.NetworkError("Check your internet connection: ${e.message}")
-                    }
-                    else -> {
-                        Exception(e.message)
-                    }
-                }
-                Result.failure(mappedError)
+            val euroRateUsd = ratesResponse.data
+                .find { rate -> rate.symbol == EURO_SYMBOL }
+                ?.rateUsd?.toDoubleOrNull()
+                ?: return@withContext Result.failure(
+                    CryptoError.EuroRateNotFoundError("Euro rate not found")
+                )
+            val coins = assetsResponse.data.map { dto ->
+                dto.toCoin(euroRateUsd)
             }
+            cachedCoins = coins
+            Result.success(coins)
+        } catch (e: Exception) {
+            val mappedError = when (e) {
+                is IOException -> {
+                    CryptoError.NetworkError("Check your internet connection: ${e.message}")
+                }
+                else -> {
+                    Exception(e.message)
+                }
+            }
+            Result.failure(mappedError)
         }
     }
 }
