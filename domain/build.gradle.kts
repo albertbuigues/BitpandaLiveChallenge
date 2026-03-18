@@ -36,12 +36,11 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
-    implementation(libs.google.material)
     // Dependency Injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     // Testing
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.mockk)
 }
