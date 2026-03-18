@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Candidate Live Challenge</string>
+    <string name="best_coins">Best coins</string>
+    <string name="worst_coins">Worst coins</string>
 </resources>
