@@ -20,8 +20,6 @@ class CryptoRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): CryptosRepository {
 
-    private var cachedCoins: List<Coin> = emptyList()
-
     /**
      * Fetches assets and converts their prices to EUR using the current exchange rate.
      *
@@ -34,8 +32,7 @@ class CryptoRepositoryImpl @Inject constructor(
      * This prevents the app from showing
      * incorrect or misleading financial information.
      */
-    override suspend fun getCoins(withRefresh: Boolean): Result<List<Coin>> = withContext(dispatcher) {
-        if (!withRefresh && cachedCoins.isNotEmpty()) return@withContext Result.success(cachedCoins)
+    override suspend fun getCoins(): Result<List<Coin>> = withContext(dispatcher) {
         try {
             // coroutineScope ensures structured concurrency: if one deferred fails,
             // it cancels the other sibling and propagates the exception to the catch block.
@@ -55,7 +52,6 @@ class CryptoRepositoryImpl @Inject constructor(
                 val coins = assetsResponse.data.map { dto ->
                     dto.toCoin(euroRateUsd)
                 }
-                cachedCoins = coins
                 Result.success(coins)
             }
         } catch (e: Exception) {

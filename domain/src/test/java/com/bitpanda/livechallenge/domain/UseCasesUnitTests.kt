@@ -2,20 +2,16 @@ package com.bitpanda.livechallenge.domain
 
 import com.bitpanda.livechallenge.domain.models.Coin
 import com.bitpanda.livechallenge.domain.repository.CryptosRepository
-import com.bitpanda.livechallenge.domain.usecases.GetCoinsUseCase
 import com.bitpanda.livechallenge.domain.usecases.GetTopTenBestCoinsUseCase
 import com.bitpanda.livechallenge.domain.usecases.GetTopTenWorstCoinsUseCase
 import io.mockk.coEvery
-import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
-import kotlin.math.exp
+import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class UseCasesUnitTests {
@@ -26,15 +22,7 @@ class UseCasesUnitTests {
     @Before
     fun setup() {
         totalCoins = createFakeCoins()
-    }
-
-    @Test
-    fun `GetCoinsUseCase returns all coins`() = runTest(StandardTestDispatcher()) {
-        coEvery { repository.getCoins(true) } returns Result.success(totalCoins)
-        val usecase = GetCoinsUseCase(repository)
-        val res = usecase.invoke()
-
-        assertEquals(totalCoins.size, res.getOrThrow().size)
+        coEvery { repository.getCoins() } returns Result.success(totalCoins)
     }
 
     @Test
@@ -51,7 +39,7 @@ class UseCasesUnitTests {
             totalCoins.find { it.id == "polygon" },
             totalCoins.find { it.id == "ethereum" }
         )
-        coEvery { repository.getCoins(false) } returns Result.success(totalCoins)
+
         val usecase = GetTopTenBestCoinsUseCase(repository)
         val res = usecase.invoke().getOrThrow()
 
@@ -72,7 +60,7 @@ class UseCasesUnitTests {
             totalCoins.find { it.id == "litecoin" },
             totalCoins.find { it.id == "bitcoin" }
         )
-        coEvery { repository.getCoins(false) } returns Result.success(totalCoins)
+
         val usecase = GetTopTenWorstCoinsUseCase(repository)
         val res = usecase.invoke().getOrThrow()
 

@@ -36,7 +36,7 @@ class CryptoRepositoryUnitTests {
         coEvery { api.getAssets() } returns AssetResponse(createFakeAssetsList())
         coEvery { api.getRates() } returns RatesResponse(createFakeRatesList())
 
-        val res = repository.getCoins(true)
+        val res = repository.getCoins()
         advanceUntilIdle()
 
         val coins = res.getOrThrow()
@@ -53,7 +53,7 @@ class CryptoRepositoryUnitTests {
         coEvery { api.getAssets() } returns AssetResponse(createFakeAssetsList())
         coEvery { api.getRates() } returns RatesResponse(createFakeRatesList())
 
-        val res = repository.getCoins(true)
+        val res = repository.getCoins()
         advanceUntilIdle()
 
         val coins = res.getOrThrow()
@@ -64,30 +64,13 @@ class CryptoRepositoryUnitTests {
     }
 
     @Test
-    fun `getCoins uses cache and does not call API on second request`() = runTest(testDispatcher) {
-        coEvery { api.getAssets() } returns AssetResponse(createFakeAssetsList())
-        coEvery { api.getRates() } returns RatesResponse(createFakeRatesList())
-
-        // We fill the cache
-        repository.getCoins(true)
-        advanceUntilIdle()
-
-        val res = repository.getCoins(false)
-
-        assertTrue(res.isSuccess)
-        assertEquals(6, res.getOrThrow().size)
-        coVerify(exactly = 1) { api.getAssets() }
-        coVerify(exactly = 1) { api.getRates() }
-    }
-
-    @Test
     fun `getCoins returns EuroRateNotFoundError when EUR symbol is missing in rates`() = runTest(testDispatcher) {
 
         val ratesWithNoEuro = createFakeRatesListWithoutEur()
         coEvery { api.getAssets() } returns AssetResponse(createFakeAssetsList())
         coEvery { api.getRates() } returns RatesResponse(ratesWithNoEuro)
 
-        val res = repository.getCoins(true)
+        val res = repository.getCoins()
         advanceUntilIdle()
 
         assertTrue(res.isFailure)
@@ -99,7 +82,7 @@ class CryptoRepositoryUnitTests {
         coEvery { api.getAssets() } coAnswers { throw IOException("No internet connection") }
         coEvery { api.getRates() } returns RatesResponse(createFakeRatesList())
 
-        val res = repository.getCoins(true)
+        val res = repository.getCoins()
         advanceUntilIdle()
 
         assertTrue(res.isFailure)
