@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,24 +23,22 @@ import com.bitpanda.livechallenge.ui.theme.PositiveGreen
 
 @Composable
 fun StatefulCryptoCoinsListElement(
-    modifier: Modifier = Modifier,
     coinName: String,
     symbol: String,
     priceInEuro: String,
-    changePercentage: Double
+    changePercentage: String
 ) {
-    StatelessCryptoCoinsListElement(modifier)
+    StatelessCryptoCoinsListElement()
 }
 
 @Composable
 private fun StatelessCryptoCoinsListElement(
-    modifier: Modifier = Modifier,
     coinName: String = "Bitcoin",
     priceInEuro: String = "52000.20",
     symbol: String = "BTC",
-    changePercentage: Double = 0.25
+    changePercentage: String = "0.25"
 ) {
-    val percentageColor = if (changePercentage > 0) {
+    val percentageColor = if (changePercentage.toDouble() > 0) {
         PositiveGreen
     } else {
         NegativeRed
@@ -53,7 +50,6 @@ private fun StatelessCryptoCoinsListElement(
             .clip(RoundedCornerShape(2.dp))
             .background(Color.White)
             .padding(12.dp)
-            .then(modifier)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()
