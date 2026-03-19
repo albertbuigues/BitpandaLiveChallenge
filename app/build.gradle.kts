@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
 
     // Dependency Injection
+    implementation(libs.hilt.nav.compose)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 

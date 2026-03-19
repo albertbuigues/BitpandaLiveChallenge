@@ -2,6 +2,15 @@
 
 This document describes the architectural patterns, module structure, and technical decisions made during the development of the Bitpanda Live Challenge.
 
+## 🚀 Setup & Configuration
+
+To run this project, you need to provide a valid API Token in your local environment to authorize network requests.
+
+1. Open your local.properties file in the root directory.
+2. Add the following line:
+   API_TOKEN=your_api_token
+3. Sync Gradle and run the app. The project is configured to inject this value into the BuildConfig during the compilation process.
+
 ## 1. Architectural Pattern: Clean Architecture
 The project is built following **Clean Architecture** principles. The main goal is the **Separation of Concerns**, ensuring that the business logic is isolated from external factors like UI frameworks, databases, or network providers.
 
@@ -35,6 +44,12 @@ The presentation layer built with **Jetpack Compose**.
 * **Use of State Hoisting pattern to separate Stateless than Stateful composables
 * **Dependency Injection:** Hilt is configured here at the Application Class and ViewModels and Android Entry Point
 
+### ⚡ Advanced UI & UX Polish
+* **Swipe-to-Refresh:** Integrated using Material 3 PullToRefreshContainer. The lifecycle of the refresh animation is bound to the ViewModel's asynchronous state to ensure perfect synchronization.** Retrofit api interfaces.
+* **DTOs:** Data Transfer Objects to parse API responses.
+* **Mappers:** Logic to convert DTOs into Domain Models.
+* **Repository Implementation:** Orchestrates data fetching, error handling, and currency conversion.
+
 ---
 
 ## 3. Key Technical Decisions
@@ -48,6 +63,10 @@ The API provides prices in USD, but the requirements specify EUR.
 By migrating from legacy XML/Fragments to **Jetpack Compose**:
 * Reduced boilerplate code (no more Adapters or ViewHolders).
 * State-driven UI, making the application more predictable and easier to debug.
+* **Swipe-to-Refresh:** Integrated using Material 3 PullToRefreshContainer. The lifecycle of the refresh animation is bound to the ViewModel's asynchronous state to ensure perfect synchronization.
+* **Anti-Flickering Strategy (Min loading time):** I've implemented a 500ms minimum loading duration. Given the high performance of the modern stack and the API, near-instant transitions between Loading and Success states can be perceived by the user as UI glitches. This deliberate delay ensures a smooth, professional, and deliberate user experience.
+* **Stateful vs Stateless:** All UI components follow the State Hoisting pattern, strictly separating logic from rendering to improve reusability and testability.
+* Branding for colors has been taken from Bitpanda webpage
 
 ### 🛡️ Use Case Granularity
 Instead of a single large Use Case, I implemented specific ones for each filter (Best, Worst, All).
@@ -61,3 +80,6 @@ Instead of a single large Use Case, I implemented specific ones for each filter 
 * **DI:** Hilt
 * **Networking:** Retrofit
 * **Concurrency:** Kotlin Coroutines & Flow API
+
+## Videos for demonstration (Success case and Error Case when Fetching data because of Network error)
+

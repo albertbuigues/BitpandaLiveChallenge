@@ -1,5 +1,6 @@
 package com.bitpanda.livechallenge.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -35,7 +36,7 @@ private fun StatelessEmptyScreen(
     emptyScreenText: String = "No data available. Swipe down to reload data."
 ) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(Color.Transparent),
         contentAlignment = Alignment.Center
     ) {
         Column(

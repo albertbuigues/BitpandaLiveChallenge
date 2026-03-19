@@ -1,4 +1,4 @@
-package com.bitpanda.livechallenge.ui.models
+package com.bitpanda.livechallenge.ui.states
 
 import com.bitpanda.livechallenge.domain.TOP_TEN_FILTER
 import com.bitpanda.livechallenge.domain.models.Coin

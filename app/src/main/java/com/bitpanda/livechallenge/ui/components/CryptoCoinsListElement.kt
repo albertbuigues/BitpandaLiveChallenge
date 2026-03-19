@@ -28,7 +28,9 @@ fun StatefulCryptoCoinsListElement(
     priceInEuro: String,
     changePercentage: String
 ) {
-    StatelessCryptoCoinsListElement()
+    StatelessCryptoCoinsListElement(
+        coinName, priceInEuro, symbol, changePercentage
+    )
 }
 
 @Composable

@@ -32,6 +32,6 @@ fun AssetDto.toCoin(euroConversionRateToUsd: Double): Coin {
         symbol = symbol,
         priceInEuro = priceInEur,
         changePercent = percent,
-        changePercentFormatted = "${String.format(Locale.ROOT, "%.2f", percent)}%"
+        changePercentFormatted = String.format(Locale.ROOT, "%.2f", percent)
     )
 }

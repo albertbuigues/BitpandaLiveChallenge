@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.bitpanda.livechallenge.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,10 +12,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
+import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,7 +29,7 @@ import com.bitpanda.livechallenge.domain.TOP_TEN_FILTER
 import com.bitpanda.livechallenge.domain.WORST_TEN_FILTER
 import com.bitpanda.livechallenge.ui.components.StatefulCryptoCoinsListElement
 import com.bitpanda.livechallenge.ui.components.StatefulFilterChip
-import com.bitpanda.livechallenge.ui.models.CoinUiState
+import com.bitpanda.livechallenge.ui.states.CoinUiState
 import com.bitpanda.livechallenge.ui.theme.BackgroundPrimaryColor
 import com.bitpanda.livechallenge.ui.theme.BitpandaLiveChallengeTheme
 
@@ -43,6 +51,7 @@ private fun StatelessCryptoCoinsList(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.Transparent)
     ) {
         Spacer(Modifier.height(20.dp))
         Row(
