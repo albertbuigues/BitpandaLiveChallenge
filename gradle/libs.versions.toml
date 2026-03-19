@@ -30,6 +30,7 @@ coroutines-test = "1.10.2"
 # Testing
 junit = "4.13.2"
 mockk = "1.14.9"
+turbine = "1.1.0"
 
 [libraries]
 # Compose
@@ -69,6 +70,7 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
