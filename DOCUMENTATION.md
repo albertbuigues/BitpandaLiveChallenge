@@ -83,3 +83,15 @@ Instead of a single large Use Case, I implemented specific ones for each filter 
 
 ## Videos for demonstration (Success case and Error Case when Fetching data because of Network error)
 
+Success:
+
+https://github.com/user-attachments/assets/6c116aa0-b86b-441e-ac80-f9f06c4982aa
+
+Error:
+
+https://github.com/user-attachments/assets/70ebe484-21b6-41f2-8c44-9dc84c1b9ee2
+
+
+
+
+
