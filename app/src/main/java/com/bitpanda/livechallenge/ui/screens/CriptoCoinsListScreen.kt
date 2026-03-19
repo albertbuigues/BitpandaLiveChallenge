@@ -77,7 +77,10 @@ fun CryptoCoinsScreen(
         is UiState.Error -> {
             // Logic to propagate error to analytics tool like Firebase or others
             // UI management is done in Launched Effect using Channels for one time events
-            StatefulEmptyScreen(stringResource(R.string.empty_text))
+            StatefulEmptyScreen(
+                helperText = stringResource(R.string.empty_text),
+                onRefresh = { viewModel.refreshData() }
+            )
         }
     }
 }

@@ -77,7 +77,11 @@ class CryptoCoinsListViewModel @Inject constructor(
 
     fun refreshData() {
         val currentState = uiState.value
-        if (currentState !is UiState.Success) return
+        if (currentState !is UiState.Success) {
+            // We are in empty screen
+            fetchCryptoCoins()
+            return
+        }
         fetchCryptoCoins(currentState.content.selectedChip)
     }
 
