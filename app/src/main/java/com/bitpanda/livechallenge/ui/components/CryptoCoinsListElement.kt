@@ -13,10 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.bitpanda.livechallenge.domain.COINS_LIST_ELEM_TAG
 import com.bitpanda.livechallenge.ui.theme.BitpandaLiveChallengeTheme
 import com.bitpanda.livechallenge.ui.theme.NegativeRed
 import com.bitpanda.livechallenge.ui.theme.PositiveGreen
@@ -52,6 +54,7 @@ private fun StatelessCryptoCoinsListElement(
             .clip(RoundedCornerShape(2.dp))
             .background(Color.White)
             .padding(12.dp)
+            .testTag(COINS_LIST_ELEM_TAG)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth()

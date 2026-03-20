@@ -8,13 +8,15 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import com.bitpanda.livechallenge.domain.LOADING_TAG
 import com.bitpanda.livechallenge.ui.theme.BackgroundPrimaryColor
 import com.bitpanda.livechallenge.ui.theme.BitpandaLiveChallengeTheme
 
 @androidx.compose.runtime.Composable
 fun LoadingScreen() {
     Box(
-        modifier = Modifier.fillMaxSize().background(Color.Transparent),
+        modifier = Modifier.fillMaxSize().background(Color.Transparent).testTag(LOADING_TAG),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(

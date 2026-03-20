@@ -25,6 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bitpanda.livechallenge.R
+import com.bitpanda.livechallenge.domain.FILTER_TOP_TAG
+import com.bitpanda.livechallenge.domain.FILTER_WORST_TAG
 import com.bitpanda.livechallenge.domain.TOP_TEN_FILTER
 import com.bitpanda.livechallenge.domain.WORST_TEN_FILTER
 import com.bitpanda.livechallenge.ui.components.StatefulCryptoCoinsListElement
@@ -62,7 +64,8 @@ private fun StatelessCryptoCoinsList(
                 onClick = onChipSelected,
                 id = TOP_TEN_FILTER,
                 text = stringResource(R.string.best_coins),
-                leadingIconResId = R.drawable.arrow_up
+                leadingIconResId = R.drawable.arrow_up,
+                testTag = FILTER_TOP_TAG
             )
             Spacer(Modifier.width(8.dp))
             StatefulFilterChip(
@@ -70,7 +73,8 @@ private fun StatelessCryptoCoinsList(
                 onClick = onChipSelected,
                 id = WORST_TEN_FILTER,
                 text = stringResource(R.string.worst_coins),
-                leadingIconResId = R.drawable.arrow_down
+                leadingIconResId = R.drawable.arrow_down,
+                testTag = FILTER_WORST_TAG
             )
         }
         Spacer(Modifier.height(20.dp))
