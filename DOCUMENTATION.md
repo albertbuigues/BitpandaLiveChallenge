@@ -74,7 +74,12 @@ Instead of a single large Use Case, I implemented specific ones for each filter 
 
 ---
 
-## 4. Tech Stack
+## 4. Others
+
+I've created a task to execute all unit tests of all modules
+./gradlew testAllModules
+
+## 5. Tech Stack
 * **Language:** Kotlin
 * **UI:** Jetpack Compose (Material 3)
 * **DI:** Hilt
