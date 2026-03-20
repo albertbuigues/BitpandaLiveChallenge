@@ -9,3 +9,26 @@ plugins {
 tasks.register<Delete>("clean") {
     delete(layout.buildDirectory)
 }
+
+subprojects {
+    tasks.withType<Test> {
+        testLogging {
+            events("passed", "skipped", "failed", "standardOut", "standardError")
+            showStandardStreams = true
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        }
+    }
+}
+
+tasks.register("testAllModules") {
+    description = "Run unit tests for all modules."
+    group = "verification"
+
+    subprojects.forEach { project ->
+        project.tasks.configureEach {
+            if (name == "testDebugUnitTest") {
+                this@register.dependsOn(this)
+            }
+        }
+    }
+}

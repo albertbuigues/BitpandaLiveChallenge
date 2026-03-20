@@ -18,6 +18,6 @@ class CoinMapperUnitTests {
         val coin = dto.toCoin(euroRate)
 
         assertEquals(54348.43, coin.priceInEuro, 0.001)
-        assertEquals("2.57%", coin.changePercentFormatted)
+        assertEquals("2.57", coin.changePercentFormatted)
     }
 }
