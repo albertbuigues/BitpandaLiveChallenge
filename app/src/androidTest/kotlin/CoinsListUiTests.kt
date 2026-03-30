@@ -30,7 +30,7 @@ import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(AndroidJUnit4::class)
-class EmptyScreenUiTests {
+class CoinsListUiTests {
 
     @get:Rule val composeRule = createComposeRule()
 
