@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Candidate Live Challenge</string>
+    <string name="app_name" translatable="false">CryptoCoinsList</string>
     <string name="best_coins">Best coins</string>
     <string name="worst_coins">Worst coins</string>
     <string name="empty_text">Some error happened. Please refresh to load data.</string>
