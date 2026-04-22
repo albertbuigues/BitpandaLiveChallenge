@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Candidate Live Challenge"
+rootProject.name = "Crypto Coins List"
 include(":app")
 include(":network")
 include(":domain")
